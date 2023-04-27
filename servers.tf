@@ -13,7 +13,7 @@ variable "instance_type" {
 }
 
 variable "components" {
-  default = [ "frontend", "mongodb", "catalogue"]
+  default = [ "frontend", "mongodb", "catalogue" ]
 }
 
 resource "aws_instance" "instance" {
