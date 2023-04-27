@@ -12,15 +12,20 @@ variable "instance_type" {
   default = "t3.small"
 }
 
-resource "aws_instance" "frontend" {
+variable "components" {
+  default = [ "frontend", "mongodb", "catalogue"]
+}
+
+resource "aws_instance" "instance" {
+  count = length(var.components)
   ami           = data.aws_ami.centos.image_id
   instance_type = "var.instance_type"
   vpc_security_group_ids = [ data.aws_security_group.allow-all.id ]
   tags = {
-    Name = "frontend"
+    Name = var.components[count.index]
   }
 }
-
+/*
 resource "aws_route53_record" "frontend" {
   zone_id = "Z03508053L6NCESX94O4U"
   name    = "frontend-dev.vardevops.online"
@@ -190,12 +195,5 @@ resource "aws_instance" "dispatch" {
   tags = {
     Name = "dispatch"
   }
-}
+}*/
 
-resource "aws_route53_record" "dispatch" {
-  zone_id = "Z03508053L6NCESX94O4U"
-  name    = "dispatch-dev.vardevops.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.dispatch.private_ip]
-}
