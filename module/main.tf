@@ -2,7 +2,7 @@
 resource "aws_instance" "instance" {
   ami           = data.aws_ami.centos.image_id
   instance_type = var.instance_type
-  vpc_security_group_ids = [ data.aws_security_group.allow-all.id ]
+  vpc_security_group_ids = [data.aws_security_group.allow-all.id]
 
   tags = {
     Name = local.name
@@ -23,7 +23,7 @@ resource "null_resource" "provisioner" {
 
     inline = [
       "rm -rf roboshop-shell",
-      "git clone https://github.com/vardevops/roboshop-shell",
+      "git clone https://github.com/vareddy101091/roboshop-shell",
       "cd roboshop-shell",
       "sudo bash ${var.component_name}.sh ${var.password}"
     ]
