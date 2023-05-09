@@ -1,3 +1,3 @@
-bucket = "terraform-var.instance_type"
+bucket = "terraform-vardevops"
 key    = "roboshop/dev/terraform.tfstate"
 region = "us-east-1"
