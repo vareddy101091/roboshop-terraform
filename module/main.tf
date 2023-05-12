@@ -66,26 +66,23 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
   role = aws_iam_role.role.id
 
 
-  policy = jsonencode({
-
-    "Version" : "2012-10-17",
-    "Statement" : [
+   policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
       {
         "Sid" : "VisualEditor0",
         "Effect" : "Allow",
         "Action" : [
+          "kms:Encrypt",
           "ssm:GetParameterHistory",
           "ssm:GetParametersByPath",
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource" : "arn:aws:ssm:us-east-1:238225233740:parameter/${var.env}.${var.component_name}.*"
-      },
-      {
-        "Sid" : "VisualEditor1",
-        "Effect" : "Allow",
-        "Action" : "ssm:DescribeParameters",
-        "Resource" : "*"
+        "Resource" : [
+          "arn:aws:ssm:us-east-1:633788536644:parameter/${var.env}.${var.component_name}.*",
+          "arn:aws:kms:us-east-1:238225233740:key/66ecc05d-1549-4ecf-8959-2cbcf2bec975"
+        ]
       }
     ]
   })
