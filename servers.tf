@@ -12,7 +12,7 @@ module "database-servers" {
 
 module "app-servers" {
   depends_on = [module.database-servers]
-  for_each = var.app_servers
+  for_each   = var.app_servers
 
   source         = "./module"
   component_name = each.value["name"]
@@ -22,7 +22,3 @@ module "app-servers" {
   provisioner    = true
   app_type       = "app"
 }
-
-
-
-
