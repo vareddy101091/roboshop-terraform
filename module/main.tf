@@ -1,9 +1,9 @@
 resource "aws_instance" "instance" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
+  ami                    = data.aws_ami.centos.image_id
+  instance_type          = var.instance_type
   vpc_security_group_ids = [data.aws_security_group.allow-all.id]
-  iam_instance_profile = aws_iam_instance_profile.instance_profile.name
-  tags = var.app_type == "app" ? local.app_tags : local.db_tags
+  iam_instance_profile   = aws_iam_instance_profile.instance_profile.name
+  tags                   = var.app_type == "app" ? local.app_tags : local.db_tags
 }
 
 resource "null_resource" "provisioner" {
@@ -26,7 +26,7 @@ resource "null_resource" "provisioner" {
 
 
 resource "aws_route53_record" "records" {
-  zone_id = "Z03508053L6NCESX94O4U"
+  zone_id =  "Z03508053L6NCESX94O4U"
   name    = "${var.component_name}-dev.vardevops.online"
   type    = "A"
   ttl     = 30
@@ -54,6 +54,7 @@ resource "aws_iam_role" "role" {
     tag-key = "${var.component_name}-${var.env}-role"
   }
 }
+
 resource "aws_iam_instance_profile" "instance_profile" {
   name = "${var.component_name}-${var.env}-role"
   role = aws_iam_role.role.name
@@ -64,9 +65,9 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
   role = aws_iam_role.role.id
 
 
-   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
         "Sid" : "VisualEditor0",
         "Effect" : "Allow",
@@ -78,8 +79,8 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
           "ssm:GetParameter"
         ],
         "Resource" : [
-          "arn:aws:ssm:us-east-1:238225233740:parameter/${var.env}.${var.component_name}.*",
-          "arn:aws:kms:us-east-1:238225233740:key/66ecc05d-1549-4ecf-8959-2cbcf2bec975"
+          "arn:aws:kms:us-east-1:238225233740:key/66ecc05d-1549-4ecf-8959-2cbcf2bec975",
+          "arn:aws:ssm:us-east-1:238225233740:parameter/${var.env}.${var.component_name}.*"
         ]
       }
     ]
