@@ -11,6 +11,7 @@ resource "null_resource" "provisioner" {
   triggers = {
     private_ip = aws_instance.instance.private_ip
   }
+
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
@@ -18,7 +19,9 @@ resource "null_resource" "provisioner" {
       password = "DevOps321"
       host     = aws_instance.instance.private_ip
     }
-    inline = var.app_type == "db" ? local.db_commands : local.app_commands
+    inline =[
+      "var.app_type == "db" ? local.db_commands : local.app_commands"
+      ]
   }
 }
 
