@@ -24,8 +24,6 @@ resource "null_resource" "provisioner" {
     }
 
     inline = var.app_type == "db" ? local.db_commands : local.app_commands
-
-
   }
 }
 
