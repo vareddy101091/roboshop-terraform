@@ -11,7 +11,7 @@ resource "null_resource" "provisioner" {
   triggers = {
     private_ip = aws_instance.instance.private_ip
   }
-  provisioner "remote-exec" {
+  provisioner "null_resource" {
 
     connection {
       type     = "ssh"
@@ -23,7 +23,7 @@ resource "null_resource" "provisioner" {
     inline = var.app_type == "db" ? local.db_commands : local.app_commands
 
   }
-}
+ }
 
 
 resource "aws_route53_record" "records" {
