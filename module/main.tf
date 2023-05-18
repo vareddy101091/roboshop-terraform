@@ -6,7 +6,7 @@ resource "aws_instance" "instance" {
   tags                   = var.app_type == "app" ? local.app_tags : local.db_tags
 }
 
-resource "null_resource" "app_type" {
+resource "null_resource" "remote-exec" {
   depends_on = [aws_instance.instance, aws_route53_record.records]
   triggers = {
     private_ip = aws_instance.instance.private_ip
