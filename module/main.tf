@@ -23,7 +23,7 @@ resource "null_resource" "remote-exec" {
     inline =[
       "git clone https://github.com/vareddy101091/roboshop-shell",
       "cd roboshop-shell",
-      "sudo bash ${var.component}.sh ${var.password}"
+      "var.app_type == "db" ? local.db_commands : local.app_commands"
 
     ]
   }
