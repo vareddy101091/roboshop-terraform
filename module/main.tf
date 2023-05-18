@@ -21,8 +21,7 @@ resource "null_resource" "remote-exec" {
     }
 
     inline =[
-      "git clone https://github.com/vareddy101091/roboshop-shell",
-      "cd roboshop-shell",
+
       var.app_type == "db" ? local.db_commands : local.app_commands
 
     ]
