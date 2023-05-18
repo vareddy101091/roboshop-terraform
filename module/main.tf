@@ -6,12 +6,12 @@ resource "aws_instance" "instance" {
   tags                   = var.app_type == "app" ? local.app_tags : local.db_tags
 }
 
-resource "null_resource" provisioner {
+resource "null_resource" "provisioner" {
   depends_on = [aws_instance.instance, aws_route53_record.records]
   triggers = {
     private_ip = aws_instance.instance.private_ip
   }
-  provisioner "remote-exec" {
+  provisioner "remote-exec" "null_resource" {
 
     connection {
       type     = "ssh"
