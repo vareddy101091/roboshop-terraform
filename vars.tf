@@ -7,9 +7,6 @@ variable "default_vpc_cidr" {}
 variable "default_vpc_rtid" {}
 
 variable "docdb" {}
-variable "rds" {}
-variable "elasticache" {}
-variable "rabbitmq" {}
-variable "alb" {}
+
 
 variable "kms_arn" {}
